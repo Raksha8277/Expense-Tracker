@@ -13,26 +13,38 @@ export default function ExpenseForm({ onAdd }: any) {
   };
 
   return (
-    <div className="flex gap-2 mt-4">
-      <input 
-        className="input"
-        placeholder="Title"
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-      />
+    <div className="mt-6 p-5 bg-white/40 backdrop-blur-lg rounded-2xl shadow-lg border border-white/30">
 
-      <input 
-        className="input"
-        placeholder="Amount"
-        value={amount}
-        onChange={e => setAmount(e.target.value)}
-      />
+      
+      <h2 className="text-xl font-semibold text-indigo-700 mb-4">
+        ➕ Add New Expense
+      </h2>
 
-      <button 
-        onClick={handleSubmit}
-        className="bg-blue-500 text-white px-4 rounded hover:scale-105 transition">
-        Add
-      </button>
+      
+      <div className="flex flex-col sm:flex-row gap-3">
+
+        <input
+          className="flex-1 p-3 rounded-xl bg-white/80 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+          placeholder="Enter title (e.g. Food, Travel)"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
+
+        <input
+          className="flex-1 p-3 rounded-xl bg-white/80 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+          placeholder="Amount (₹)"
+          value={amount}
+          onChange={e => setAmount(e.target.value)}
+        />
+
+        <button
+          onClick={handleSubmit}
+          className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow-md hover:scale-105 hover:shadow-xl transition duration-300"
+        >
+          Add
+        </button>
+
+      </div>
     </div>
   );
 }
