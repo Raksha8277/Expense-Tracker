@@ -1,5 +1,3 @@
-
-
 export default function Navbar() {
 
   return (
@@ -7,18 +5,11 @@ export default function Navbar() {
 
       
       <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
-        💰 Expense Tracker
+         Expense Tracker
       </h1>
 
       
       <div className="flex items-center gap-4">
-
-        
-        <span className="hidden sm:block text-gray-700 font-medium">
-          Welcome 👋
-        </span>
-
-        
         
       </div>
 
