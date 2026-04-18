@@ -1,15 +1,44 @@
 export default function ExpenseList({ expenses }: any) {
   return (
-    <div className="mt-4">
+    <div className="mt-6">
+
+      
       {expenses.length === 0 ? (
-        <p className="text-gray-500">No expenses yet</p>
+        <div className="text-center text-gray-500 mt-10">
+          <p className="text-lg">No expenses yet 😔</p>
+          <p className="text-sm">Start adding your expenses above</p>
+        </div>
       ) : (
-        expenses.map((e: any, i: number) => (
-          <div key={i} className="bg-gray-100 p-3 mb-2 rounded shadow">
-            <p className="font-semibold">{e.title}</p>
-            <p>₹{e.amount}</p>
-          </div>
-        ))
+
+        <div className="grid gap-4">
+
+          {expenses.map((e: any, i: number) => (
+            <div
+              key={i}
+              className="flex justify-between items-center p-4 bg-white/50 backdrop-blur-lg border border-white/30 rounded-2xl shadow-md hover:scale-[1.02] hover:shadow-xl transition duration-300"
+            >
+
+              
+              <div>
+                <p className="text-lg font-semibold text-gray-800">
+                  {e.title}
+                </p>
+                <p className="text-sm text-gray-500">
+                  Expense item
+                </p>
+              </div>
+
+              
+              <div className="text-right">
+                <p className="text-xl font-bold text-indigo-600">
+                  ₹{e.amount}
+                </p>
+              </div>
+
+            </div>
+          ))}
+
+        </div>
       )}
     </div>
   );
