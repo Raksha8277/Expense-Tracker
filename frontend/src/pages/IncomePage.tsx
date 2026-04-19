@@ -17,7 +17,7 @@ export default function IncomePage() {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200">
       <Navbar />
 
       <div className="p-6">
