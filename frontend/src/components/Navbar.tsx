@@ -29,6 +29,8 @@ export default function Navbar() {
                 : "bg-red-100 text-red-600 hover:bg-red-200"
             }`}
           >
+
+            Expense History
            
           </button>
 
@@ -40,7 +42,7 @@ export default function Navbar() {
                 : "bg-green-100 text-green-600 hover:bg-green-200"
             }`}
           >
-            
+            Income History
           </button>
 
         </div>
