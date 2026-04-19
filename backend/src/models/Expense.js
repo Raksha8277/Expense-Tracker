@@ -1,15 +1,25 @@
 const mongoose = require("mongoose");
 
 const expenseSchema = new mongoose.Schema({
-  title: String,
-  amount: Number,
-  date: { type: Date, default: Date.now },
+  amount: {
+    type: Number,
+    required: true,
+  },
 
-  // ✅ NEW FIELD
+  category: {
+    type: String,
+    required: true,   
+  },
+
   type: {
     type: String,
     enum: ["income", "expense"],
     default: "expense",
+  },
+
+  date: {
+    type: Date,
+    default: Date.now,
   }
 });
 
