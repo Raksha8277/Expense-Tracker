@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import ExpenseForm from "../components/ExpenseForm";
 
 
-const API = "https://expense-tracker-d8ww.onrender.com/api/expenses";
+const API = `${import.meta.env.VITE_API_URL}/api/expenses`;
 
 export default function Dashboard() {
   const [expenses, setExpenses] = useState<any[]>([]);
