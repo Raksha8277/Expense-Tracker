@@ -4,36 +4,43 @@ import Navbar from "../components/Navbar";
 import ExpenseList from "../components/ExpenseList";
 import { useNavigate } from "react-router-dom";
 
+const API = "https://expense-tracker-d8ww.onrender.com/api/expenses";
+
 export default function IncomePage() {
   const [expenses, setExpenses] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/expenses")
+    axios.get(API)
       .then(res => {
         const onlyIncome = res.data.filter((e: any) => e.type === "income");
         setExpenses(onlyIncome);
-      });
+      })
+      .catch(() => alert("Failed to load income"));
   }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200">
+      
       <Navbar />
 
       <div className="p-6">
-        <h1 className="text-3xl font-bold text-green-600 mb-4">
+        <h1 className="text-3xl font-bold text-green-600 mb-4 text-center">
           Income List 💰
         </h1>
 
         <ExpenseList expenses={expenses} setExpenses={setExpenses} />
       </div>
 
-      <button
-  onClick={() => navigate("/")}
-  className="mb-4 px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
->
-  ⬅ Back
-</button>
+      <div className="flex justify-center pb-6">
+        <button
+          onClick={() => navigate("/")}
+          className="px-5 py-2 bg-indigo-500 text-white rounded-xl hover:bg-indigo-600 shadow"
+        >
+          ⬅ Back
+        </button>
+      </div>
+
     </div>
   );
 }
