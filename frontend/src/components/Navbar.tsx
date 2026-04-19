@@ -1,19 +1,35 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
+  const navigate = useNavigate();
 
   return (
-    <div className="flex justify-between items-center px-6 py-3 bg-white/30 backdrop-blur-lg shadow-lg border-b border-white/20">
+    <div className="flex justify-between items-center px-6 py-3 bg-white/30 backdrop-blur-lg shadow-lg">
 
-      
-      <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
-         Expense Tracker
+      <h1 
+        onClick={() => navigate("/")}
+        className="text-2xl font-bold cursor-pointer"
+      >
+        Expense Tracker
       </h1>
 
-      
-      <div className="flex items-center gap-4">
-        
-      </div>
+      <div className="flex gap-4">
 
+        <button
+          onClick={() => navigate("/expenses")}
+          className="px-4 py-2 bg-red-200 rounded"
+        >
+          Expense
+        </button>
+
+        <button
+          onClick={() => navigate("/income")}
+          className="px-4 py-2 bg-green-200 rounded"
+        >
+          Income
+        </button>
+
+      </div>
     </div>
   );
 }
-
