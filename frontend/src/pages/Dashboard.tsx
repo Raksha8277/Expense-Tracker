@@ -40,7 +40,7 @@ export default function Dashboard() {
   const balance = totalIncome - totalExpense;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200">
 
       <Navbar />
 
@@ -54,18 +54,18 @@ export default function Dashboard() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-          <div className="bg-green-100 p-5 rounded-2xl shadow-lg">
-            <h2 className="text-gray-600">Income</h2>
+          <div className="bg-gray-100 p-5 rounded-2xl shadow-lg">
+            <h2 className="text-gray-600 font-bold">Income</h2>
             <p className="text-2xl font-bold text-green-600">₹{totalIncome}</p>
           </div>
 
-          <div className="bg-red-100 p-5 rounded-2xl shadow-lg">
-            <h2 className="text-gray-600">Expense</h2>
+          <div className="bg-gray-100 p-5 rounded-2xl shadow-lg">
+            <h2 className="text-gray-600 font-bold">Expense</h2>
             <p className="text-2xl font-bold text-red-600">₹{totalExpense}</p>
           </div>
 
-          <div className="bg-blue-100 p-5 rounded-2xl shadow-lg">
-            <h2 className="text-gray-600">Balance</h2>
+          <div className="bg-gray-100 p-5 rounded-2xl shadow-lg">
+            <h2 className="text-gray-600 font-bold">Balance</h2>
             <p className="text-2xl font-bold text-blue-600">₹{balance}</p>
           </div>
 
