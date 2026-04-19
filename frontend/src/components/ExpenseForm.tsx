@@ -1,55 +1,89 @@
 import { useState } from "react";
 
-export default function ExpenseForm({ onAdd }: any) {
-  const [title, setTitle] = useState("");
+export default function ExpenseForm({ onAdd, type }: any) {
   const [amount, setAmount] = useState("");
-  const [type, setType] = useState("expense"); 
+  const [category, setCategory] = useState("");
+
+
+  const expenseCategories = [
+    "Food 🍔",
+    "Travel ✈️",
+    "Shopping 🛍️",
+    "Bills 💡",
+    "Health 🏥",
+    "Entertainment 🎬",
+    "Education 📚",
+    "Others"
+  ];
+
+ 
+  const incomeCategories = [
+    "Salary 💼",
+    "Freelance 💻",
+    "Business 🏢",
+    "Investment 📈",
+    "Gift 🎁",
+    "Bonus 💰",
+    "Other"
+  ];
+
+  const categories =
+    type === "expense" ? expenseCategories : incomeCategories;
 
   const handleSubmit = () => {
-    if (!title || !amount) return alert("Fill all fields");
+    if (!amount || !category) {
+      return alert("Select category and enter amount");
+    }
 
-    onAdd({ title, amount, type }); 
-    setTitle("");
+    onAdd({
+      amount,
+      category,
+      type
+    });
+
     setAmount("");
-    setType("expense");
+    setCategory("");
   };
 
   return (
-    <div className="mt-6 p-5 bg-white/40 backdrop-blur-lg rounded-2xl shadow-lg border border-white/30">
+    <div className="mt-6 p-6 bg-white/60 backdrop-blur-lg rounded-2xl shadow-xl border">
 
       <h2 className="text-xl font-semibold text-indigo-700 mb-4">
-        Add Transaction
+        Add {type === "expense" ? "Expense " : "Income "}
       </h2>
 
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 
-        <input
-          className="flex-1 p-3 rounded-xl bg-white/80"
-          placeholder="Title"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-        />
-
-        <input
-          className="flex-1 p-3 rounded-xl bg-white/80"
-          placeholder="Amount (₹)"
-          value={amount}
-          onChange={e => setAmount(e.target.value)}
-        />
-
-
+        {/* Category */}
         <select
-          className="p-3 rounded-xl bg-white/80"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
+          className="p-3 rounded-xl bg-white border"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="expense">Expense</option>
-          <option value="income">Income</option>
+          <option value="">Select Category</option>
+          {categories.map((c, i) => (
+            <option key={i} value={c}>
+              {c}
+            </option>
+          ))}
         </select>
 
+       
+        <input
+          className="p-3 rounded-xl bg-white border"
+          placeholder="Amount (₹)"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+
+        
         <button
           onClick={handleSubmit}
-          className="px-6 py-3 rounded-xl bg-indigo-500 text-white"
+          className={`rounded-xl text-white font-semibold ${
+            type === "expense"
+              ? "bg-red-500 hover:bg-red-600"
+              : "bg-green-500 hover:bg-green-600"
+          }`}
         >
           Add
         </button>
