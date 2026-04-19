@@ -6,7 +6,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-      </Routes>
+      </Routes> 
     </BrowserRouter>
   );
 }
