@@ -3,29 +3,31 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import ExpenseForm from "../components/ExpenseForm";
 
+
+const API = "https://expense-tracker-d8ww.onrender.com/api/expenses";
+
 export default function Dashboard() {
   const [expenses, setExpenses] = useState<any[]>([]);
   const [type, setType] = useState<"expense" | "income">("expense");
+  const [loading, setLoading] = useState(true);
 
   
   const addExpense = async (data: any) => {
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/expenses",
-        data
-      );
+      const res = await axios.post(API, data);
       setExpenses((prev) => [...prev, res.data]);
     } catch {
-      alert("Failed to add transaction");
+      alert(" Failed to add transaction");
     }
   };
 
   
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/expenses")
+      .get(API)
       .then((res) => setExpenses(res.data))
-      .catch(() => alert("Failed to load data"));
+      .catch(() => alert("Failed to load data"))
+      .finally(() => setLoading(false));
   }, []);
 
   
@@ -47,26 +49,32 @@ export default function Dashboard() {
       <div className="max-w-4xl mx-auto p-6 space-y-6">
 
         
-        <h1 className="text-4xl text-center font-bold text-indigo-700">
+        <h1 className="text-4xl text-center font-extrabold text-indigo-700">
           Dashboard 
         </h1>
 
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-          <div className="bg-gray-100 p-5 rounded-2xl shadow-lg">
-            <h2 className="text-gray-600 font-bold">Income</h2>
-            <p className="text-2xl font-bold text-green-600">₹{totalIncome}</p>
+          <div className="bg-white p-6 rounded-2xl shadow-xl text-center">
+            <h2 className="text-gray-500 font-semibold">Income</h2>
+            <p className="text-3xl font-bold text-green-600 mt-2">
+              ₹{totalIncome}
+            </p>
           </div>
 
-          <div className="bg-gray-100 p-5 rounded-2xl shadow-lg">
-            <h2 className="text-gray-600 font-bold">Expense</h2>
-            <p className="text-2xl font-bold text-red-600">₹{totalExpense}</p>
+          <div className="bg-white p-6 rounded-2xl shadow-xl text-center">
+            <h2 className="text-gray-500 font-semibold">Expense</h2>
+            <p className="text-3xl font-bold text-red-600 mt-2">
+              ₹{totalExpense}
+            </p>
           </div>
 
-          <div className="bg-gray-100 p-5 rounded-2xl shadow-lg">
-            <h2 className="text-gray-600 font-bold">Balance</h2>
-            <p className="text-2xl font-bold text-blue-600">₹{balance}</p>
+          <div className="bg-white p-6 rounded-2xl shadow-xl text-center">
+            <h2 className="text-gray-500 font-semibold">Balance</h2>
+            <p className="text-3xl font-bold text-blue-600 mt-2">
+              ₹{balance}
+            </p>
           </div>
 
         </div>
@@ -76,10 +84,10 @@ export default function Dashboard() {
 
           <button
             onClick={() => setType("expense")}
-            className={`px-5 py-2 rounded-xl font-semibold transition ${
+            className={`px-6 py-2 rounded-xl font-semibold transition ${
               type === "expense"
-                ? "bg-red-500 text-white shadow-lg"
-                : "bg-red-100"
+                ? "bg-red-500 text-white shadow-lg scale-105"
+                : "bg-red-100 hover:bg-red-200"
             }`}
           >
             💸 Expense
@@ -87,10 +95,10 @@ export default function Dashboard() {
 
           <button
             onClick={() => setType("income")}
-            className={`px-5 py-2 rounded-xl font-semibold transition ${
+            className={`px-6 py-2 rounded-xl font-semibold transition ${
               type === "income"
-                ? "bg-green-500 text-white shadow-lg"
-                : "bg-green-100"
+                ? "bg-green-500 text-white shadow-lg scale-105"
+                : "bg-green-100 hover:bg-green-200"
             }`}
           >
             📈 Income
@@ -98,8 +106,15 @@ export default function Dashboard() {
 
         </div>
 
-        
+     
         <ExpenseForm onAdd={addExpense} type={type} />
+
+        
+        {loading && (
+          <p className="text-center text-gray-600 mt-4">
+            Loading data...
+          </p>
+        )}
 
       </div>
     </div>
