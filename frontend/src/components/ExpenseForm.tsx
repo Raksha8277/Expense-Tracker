@@ -3,12 +3,12 @@ import { useState } from "react";
 export default function ExpenseForm({ onAdd }: any) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
-  const [type, setType] = useState("expense"); // ✅ NEW
+  const [type, setType] = useState("expense"); 
 
   const handleSubmit = () => {
     if (!title || !amount) return alert("Fill all fields");
 
-    onAdd({ title, amount, type }); // ✅ send type also
+    onAdd({ title, amount, type }); 
     setTitle("");
     setAmount("");
     setType("expense");
