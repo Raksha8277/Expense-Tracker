@@ -3,7 +3,6 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import ExpenseForm from "../components/ExpenseForm";
 
-
 const API = `${import.meta.env.VITE_API_URL}/api/expenses`;
 
 export default function Dashboard() {
@@ -11,17 +10,15 @@ export default function Dashboard() {
   const [type, setType] = useState<"expense" | "income">("expense");
   const [loading, setLoading] = useState(true);
 
-  
   const addExpense = async (data: any) => {
     try {
       const res = await axios.post(API, data);
       setExpenses((prev) => [...prev, res.data]);
     } catch {
-      alert(" Failed to add transaction");
+      alert("Failed to add transaction");
     }
   };
 
-  
   useEffect(() => {
     axios
       .get(API)
@@ -30,7 +27,6 @@ export default function Dashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  
   const totalIncome = expenses
     .filter((e) => e.type === "income")
     .reduce((sum, e: any) => sum + Number(e.amount), 0);
@@ -42,36 +38,39 @@ export default function Dashboard() {
   const balance = totalIncome - totalExpense;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-300 via-purple-200 to-pink-200">
 
       <Navbar />
 
-      <div className="max-w-4xl mx-auto p-6 space-y-6">
+      <div className="max-w-5xl mx-auto p-6 space-y-8">
 
         
-        <h1 className="text-4xl text-center font-extrabold text-indigo-700">
-          Dashboard 
+        <h1 className="text-4xl md:text-5xl text-center font-extrabold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
+          Expense Tracker Dashboard
         </h1>
 
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-          <div className="bg-white p-6 rounded-2xl shadow-xl text-center">
-            <h2 className="text-gray-500 font-semibold">Income</h2>
+          
+          <div className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+            <h2 className="text-gray-500 font-medium">Income</h2>
             <p className="text-3xl font-bold text-green-600 mt-2">
               ₹{totalIncome}
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-xl text-center">
-            <h2 className="text-gray-500 font-semibold">Expense</h2>
+          
+          <div className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+            <h2 className="text-gray-500 font-medium">Expense</h2>
             <p className="text-3xl font-bold text-red-600 mt-2">
               ₹{totalExpense}
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-xl text-center">
-            <h2 className="text-gray-500 font-semibold">Balance</h2>
+          
+          <div className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+            <h2 className="text-gray-500 font-medium">Balance</h2>
             <p className="text-3xl font-bold text-blue-600 mt-2">
               ₹{balance}
             </p>
@@ -79,39 +78,41 @@ export default function Dashboard() {
 
         </div>
 
-       
-        <div className="flex justify-center gap-4 mt-4">
+        
+        <div className="flex justify-center gap-5">
 
           <button
             onClick={() => setType("expense")}
-            className={`px-6 py-2 rounded-xl font-semibold transition ${
+            className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 transform ${
               type === "expense"
-                ? "bg-red-500 text-white shadow-lg scale-105"
-                : "bg-red-100 hover:bg-red-200"
+                ? "bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg scale-105"
+                : "bg-white/70 backdrop-blur border border-red-200 text-red-600 hover:bg-red-100 hover:scale-105"
             }`}
           >
-            💸 Expense
+             Expense
           </button>
 
           <button
             onClick={() => setType("income")}
-            className={`px-6 py-2 rounded-xl font-semibold transition ${
+            className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 transform ${
               type === "income"
-                ? "bg-green-500 text-white shadow-lg scale-105"
-                : "bg-green-100 hover:bg-green-200"
+                ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg scale-105"
+                : "bg-white/70 backdrop-blur border border-green-200 text-green-600 hover:bg-green-100 hover:scale-105"
             }`}
           >
-            📈 Income
+             Income
           </button>
 
         </div>
 
-     
-        <ExpenseForm onAdd={addExpense} type={type} />
+        
+        <div className="bg-white/60 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40">
+          <ExpenseForm onAdd={addExpense} type={type} />
+        </div>
 
         
         {loading && (
-          <p className="text-center text-gray-600 mt-4">
+          <p className="text-center text-gray-600 animate-pulse">
             Loading data...
           </p>
         )}
