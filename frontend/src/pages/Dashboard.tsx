@@ -44,41 +44,35 @@ export default function Dashboard() {
 
       <div className="max-w-5xl mx-auto p-6 space-y-8">
 
-        
-        <h1 className="text-4xl md:text-5xl text-center font-extrabold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl text-center font-extrabold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent opacity-0 translate-y-5 animate-[fadeSlideIn_0.6s_ease_forwards]">
           Expense Tracker Dashboard
         </h1>
 
-        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-          
-          <div className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-            <h2 className="text-gray-500 font-medium">Income</h2>
-            <p className="text-3xl font-bold text-green-600 mt-2">
-              ₹{totalIncome}
-            </p>
-          </div>
+          {[
+            { title: "Income", value: totalIncome, color: "text-green-600" },
+            { title: "Expense", value: totalExpense, color: "text-red-500" },
+            { title: "Balance", value: balance, color: "text-blue-600" }
+          ].map((card, index) => (
 
-          
-          <div className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-            <h2 className="text-gray-500 font-medium">Expense</h2>
-            <p className="text-3xl font-bold text-red-600 mt-2">
-              ₹{totalExpense}
-            </p>
-          </div>
+            <div
+              key={index}
+              className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40 text-center 
+              transform transition duration-300 hover:scale-105 hover:shadow-2xl
+              opacity-0 translate-y-5 animate-[fadeSlideIn_0.5s_ease_forwards]"
+              style={{ animationDelay: `${index * 0.15}s` }}
+            >
+              <h2 className="text-gray-500 font-medium">{card.title}</h2>
+              <p className={`text-3xl font-bold mt-2 ${card.color}`}>
+                ₹{card.value}
+              </p>
+            </div>
 
-          
-          <div className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-            <h2 className="text-gray-500 font-medium">Balance</h2>
-            <p className="text-3xl font-bold text-blue-600 mt-2">
-              ₹{balance}
-            </p>
-          </div>
+          ))}
 
         </div>
 
-        
         <div className="flex justify-center gap-5">
 
           <button
@@ -105,12 +99,12 @@ export default function Dashboard() {
 
         </div>
 
-        
-        <div className="bg-white/60 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40">
+        <div className="bg-white/60 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40 
+        opacity-0 translate-y-5 animate-[fadeSlideIn_0.6s_ease_forwards]"
+        style={{ animationDelay: "0.4s" }}>
           <ExpenseForm onAdd={addExpense} type={type} />
         </div>
 
-        
         {loading && (
           <p className="text-center text-gray-600 animate-pulse">
             Loading data...

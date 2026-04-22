@@ -20,27 +20,37 @@ export default function IncomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200">
-      
+    <div className="min-h-screen bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200">
+
       <Navbar />
 
-      <div className="p-6">
-        <h1 className="text-3xl font-bold text-green-600 mb-4 text-center">
-          Income List 💰
+      <div className="max-w-5xl mx-auto p-6 space-y-6">
+
+        {/* TITLE */}
+        <h1 className="text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
+          Income History 
         </h1>
 
-        <ExpenseList expenses={expenses} setExpenses={setExpenses} />
-      </div>
+        <div className="flex justify-right">
+          <button
+            onClick={() => navigate("/")}
+            className="px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-600 shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+          >
+            Back to Dashboard
+          </button>
+        </div>
 
-      <div className="flex justify-center pb-6">
-        <button
-          onClick={() => navigate("/")}
-          className="px-5 py-2 bg-indigo-500 text-white rounded-xl hover:bg-indigo-600 shadow"
-        >
-          ⬅ Back
-        </button>
-      </div>
+        {/* CARD CONTAINER */}
+        <div className="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/40">
 
+          <ExpenseList expenses={expenses} setExpenses={setExpenses} />
+
+        </div>
+
+        {/* BACK BUTTON */}
+        
+
+      </div>
     </div>
   );
 }
