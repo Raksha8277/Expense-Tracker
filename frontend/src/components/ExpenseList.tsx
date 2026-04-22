@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API = `${import.meta.env.VITE_API_URL}/api/expenses`;
+
 export default function ExpenseList({ expenses, setExpenses }: any) {
   const [editId, setEditId] = useState<string | null>(null);
   const [editData, setEditData] = useState({
@@ -11,7 +13,8 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
   const deleteExpense = async (id: string) => {
     if (!window.confirm("Delete this transaction?")) return;
 
-    await axios.delete(`http://localhost:5000/api/expenses/${id}`);
+    await axios.delete(`${API}/${id}`);
+
     setExpenses(expenses.filter((e: any) => e._id !== id));
   };
 
@@ -24,10 +27,7 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
   };
 
   const saveEdit = async (id: string) => {
-    const res = await axios.put(
-      `http://localhost:5000/api/expenses/${id}`,
-      editData
-    );
+    const res = await axios.put(`${API}/${id}`, editData);
 
     const updatedList = expenses.map((e: any) =>
       e._id === id ? res.data : e
@@ -41,19 +41,19 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
     <div className="mt-6 space-y-4">
 
       {expenses.length === 0 ? (
-  <div className="text-center text-gray-500 mt-10 text-lg animate-fadeIn">
-    No transactions yet
-  </div>
-) : (
-  expenses.map((e: any, index: number) => (
-    <div
-      key={e._id}
-      className="flex justify-between items-center p-5 rounded-2xl bg-white/80 backdrop-blur-xl shadow-md border border-white/40 
-      hover:shadow-xl hover:scale-[1.01] 
-      transition-all duration-300 
-      opacity-0 translate-y-5 animate-[fadeSlideIn_0.5s_ease_forwards]"
-      style={{ animationDelay: `${index * 0.1}s` }} 
-    >
+        <div className="text-center text-gray-500 mt-10 text-lg animate-fadeIn">
+          No transactions found.
+        </div>
+      ) : (
+        expenses.map((e: any, index: number) => (
+          <div
+            key={e._id}
+            className="flex justify-between items-center p-5 rounded-2xl bg-white/80 backdrop-blur-xl shadow-md border border-white/40 
+            hover:shadow-xl hover:scale-[1.01] 
+            transition-all duration-300 
+            opacity-0 translate-y-5 animate-[fadeSlideIn_0.5s_ease_forwards]"
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
 
             {editId === e._id ? (
               <div className="flex gap-3 w-full">
@@ -109,20 +109,21 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
 
                 </div>
 
+               
                 <div className="flex gap-3">
 
                   <button
                     onClick={() => startEdit(e)}
                     className="px-4 py-1.5 rounded-full bg-blue-500/90 text-white text-sm font-medium shadow hover:bg-blue-600 hover:scale-105 transition"
                   >
-                     Edit
+                    Edit
                   </button>
 
                   <button
                     onClick={() => deleteExpense(e._id)}
                     className="px-4 py-1.5 rounded-full bg-red-500/90 text-white text-sm font-medium shadow hover:bg-red-600 hover:scale-105 transition"
                   >
-                     Delete
+                    Delete
                   </button>
 
                 </div>
