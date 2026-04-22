@@ -41,19 +41,22 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
     <div className="mt-6 space-y-4">
 
       {expenses.length === 0 ? (
-        <p className="text-center text-gray-500 mt-10">
-          No transactions yet 😔
-        </p>
-      ) : (
-        expenses.map((e: any) => (
-          <div
-            key={e._id}
-            className="p-4 bg-white/70 backdrop-blur-lg rounded-2xl shadow-sm border border-gray-200 flex justify-between items-center hover:shadow-md transition duration-300"
-          >
+  <div className="text-center text-gray-500 mt-10 text-lg animate-fadeIn">
+    No transactions yet
+  </div>
+) : (
+  expenses.map((e: any, index: number) => (
+    <div
+      key={e._id}
+      className="flex justify-between items-center p-5 rounded-2xl bg-white/80 backdrop-blur-xl shadow-md border border-white/40 
+      hover:shadow-xl hover:scale-[1.01] 
+      transition-all duration-300 
+      opacity-0 translate-y-5 animate-[fadeSlideIn_0.5s_ease_forwards]"
+      style={{ animationDelay: `${index * 0.1}s` }} 
+    >
 
-            
             {editId === e._id ? (
-              <div className="flex gap-2 w-full">
+              <div className="flex gap-3 w-full">
 
                 <input
                   value={editData.category}
@@ -63,7 +66,7 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
                       category: ev.target.value
                     })
                   }
-                  className="flex-1 p-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="flex-1 p-3 rounded-xl border border-gray-300 bg-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                 />
 
                 <input
@@ -74,12 +77,12 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
                       amount: ev.target.value
                     })
                   }
-                  className="w-28 p-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="w-32 p-3 rounded-xl border border-gray-300 bg-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                 />
 
                 <button
                   onClick={() => saveEdit(e._id)}
-                  className="px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold shadow-md hover:scale-105 transition"
                 >
                   Save
                 </button>
@@ -88,37 +91,38 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
             ) : (
               <>
                 
-                <div>
-                  <p className="text-lg font-semibold text-gray-800">
-                    {e.category}
-                  </p>
+                <div className="flex flex-col">
 
-                  <p
-                    className={`text-md font-bold ${
+                  <span className="text-lg font-semibold text-gray-800 tracking-wide">
+                    {e.category}
+                  </span>
+
+                  <span
+                    className={`text-lg font-bold mt-1 ${
                       e.type === "expense"
                         ? "text-red-500"
                         : "text-green-600"
                     }`}
                   >
                     ₹{e.amount}
-                  </p>
+                  </span>
+
                 </div>
 
-                
-                <div className="flex gap-2">
+                <div className="flex gap-3">
 
                   <button
                     onClick={() => startEdit(e)}
-                    className="px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition text-sm"
+                    className="px-4 py-1.5 rounded-full bg-blue-500/90 text-white text-sm font-medium shadow hover:bg-blue-600 hover:scale-105 transition"
                   >
-                    Edit
+                     Edit
                   </button>
 
                   <button
                     onClick={() => deleteExpense(e._id)}
-                    className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition text-sm"
+                    className="px-4 py-1.5 rounded-full bg-red-500/90 text-white text-sm font-medium shadow hover:bg-red-600 hover:scale-105 transition"
                   >
-                    Delete
+                     Delete
                   </button>
 
                 </div>
