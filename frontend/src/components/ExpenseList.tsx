@@ -37,23 +37,26 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
   };
 
   return (
-    <div className="mt-6 space-y-4 px-2 sm:px-0">
+    <div className="mt-6 space-y-4 px-2 md:px-0">
 
       {expenses.length === 0 ? (
-        <div className="text-center text-gray-500 mt-10 text-lg">
+        <div className="text-center text-gray-500 mt-10 text-base md:text-lg animate-pulse">
           No transactions found.
         </div>
       ) : (
         expenses.map((e: any, index: number) => (
           <div
             key={e._id}
-            className="flex flex-col sm:flex-row sm:justify-between sm:items-center 
-            gap-4 p-4 sm:p-5 rounded-2xl bg-white/80 backdrop-blur-xl shadow-md border border-white/40 
-            hover:shadow-xl transition-all duration-300"
+            className="flex flex-col md:flex-row md:justify-between md:items-center 
+            gap-4 p-4 md:p-5 rounded-2xl 
+            bg-white/80 backdrop-blur-xl shadow-md border border-white/40 
+            hover:shadow-xl transition-all duration-300 
+            opacity-0 translate-y-5 animate-[fadeSlideIn_0.5s_ease_forwards]"
+            style={{ animationDelay: `${index * 0.08}s` }}
           >
 
             {editId === e._id ? (
-              <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <div className="flex flex-col md:flex-row gap-3 w-full">
 
                 <input
                   value={editData.category}
@@ -63,7 +66,8 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
                       category: ev.target.value
                     })
                   }
-                  className="flex-1 p-3 rounded-xl border border-gray-300 bg-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="w-full p-3 rounded-xl border border-gray-300 bg-white/90 
+                  focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 />
 
                 <input
@@ -74,12 +78,15 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
                       amount: ev.target.value
                     })
                   }
-                  className="w-full sm:w-32 p-3 rounded-xl border border-gray-300 bg-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="w-full md:w-32 p-3 rounded-xl border border-gray-300 bg-white/90 
+                  focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 />
 
                 <button
                   onClick={() => saveEdit(e._id)}
-                  className="w-full sm:w-auto px-5 py-2 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold shadow-md"
+                  className="w-full md:w-auto px-5 py-2 rounded-xl 
+                  bg-gradient-to-r from-green-500 to-emerald-600 
+                  text-white font-semibold shadow-md hover:scale-105 transition"
                 >
                   Save
                 </button>
@@ -87,15 +94,15 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
               </div>
             ) : (
               <>
-                {/* LEFT SIDE */}
+               
                 <div className="flex flex-col">
 
-                  <span className="text-lg font-semibold text-gray-800">
+                  <span className="text-base md:text-lg font-semibold text-gray-800">
                     {e.category}
                   </span>
 
                   <span
-                    className={`text-lg font-bold mt-1 ${
+                    className={`text-lg md:text-xl font-bold mt-1 ${
                       e.type === "expense"
                         ? "text-red-500"
                         : "text-green-600"
@@ -106,19 +113,23 @@ export default function ExpenseList({ expenses, setExpenses }: any) {
 
                 </div>
 
-                {/* RIGHT SIDE BUTTONS */}
-                <div className="flex flex-row sm:flex-row gap-2 sm:gap-3 justify-end">
+                
+                <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
 
                   <button
                     onClick={() => startEdit(e)}
-                    className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium"
+                    className="w-full sm:w-auto px-4 py-2 rounded-full 
+                    bg-blue-500 text-white text-sm font-medium 
+                    shadow hover:bg-blue-600 hover:scale-105 transition"
                   >
                     Edit
                   </button>
 
                   <button
                     onClick={() => deleteExpense(e._id)}
-                    className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-red-500 text-white text-sm font-medium"
+                    className="w-full sm:w-auto px-4 py-2 rounded-full 
+                    bg-red-500 text-white text-sm font-medium 
+                    shadow hover:bg-red-600 hover:scale-105 transition"
                   >
                     Delete
                   </button>
